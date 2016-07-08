@@ -118,6 +118,11 @@ public class VentaNueva extends javax.swing.JFrame {
             }
         });
         tablaInventarioVentas.setRowHeight(20);
+        tablaInventarioVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaInventarioVentasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaInventarioVentas);
         if (tablaInventarioVentas.getColumnModel().getColumnCount() > 0) {
             tablaInventarioVentas.getColumnModel().getColumn(0).setResizable(false);
@@ -391,7 +396,7 @@ public class VentaNueva extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRegistrarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancelarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -524,7 +529,6 @@ public class VentaNueva extends javax.swing.JFrame {
 
     private void txtEfectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEfectivoKeyReleased
 
-
         char letra = evt.getKeyChar();
         if (letra == '\n') {
             if (Float.parseFloat(txtEfectivo.getText()) >= Float.parseFloat(txtTotal.getText())) {
@@ -637,6 +641,30 @@ public class VentaNueva extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtNoUnidadesKeyTyped
+
+    private void tablaInventarioVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaInventarioVentasMouseClicked
+        if (evt.getClickCount() == 2) {
+            int linea = tablaInventarioVentas.getSelectedRow();
+
+            BeanProducto bp = productosLista.get(linea);
+            double sumar = bp.getPrecio_venta();
+            if (txtNoUnidades.getText().isEmpty()) {
+                productosVenta.add(bp);
+                total = total + bp.getPrecio_venta();
+            } else {
+                for (int j = 0; j < Integer.parseInt(txtNoUnidades.getText()); j++) {
+                    productosVenta.add(bp);
+                    total = total + sumar;
+                }
+            }
+            txtTotal.setText("" + Math.round(total));
+            txtBucarProVentas.setText("");
+            txtNoUnidades.setText("");
+            lt.llenarTablaVentaNueva(productosVenta, tablaVentaNueva);
+            productosLista = dao.consultareProductos();
+            lt.llenarInventarioVentas(dao.consultareProductos(), tablaInventarioVentas);
+        }
+    }//GEN-LAST:event_tablaInventarioVentasMouseClicked
 
     public static void main(String args[]) {
 

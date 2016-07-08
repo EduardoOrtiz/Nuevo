@@ -13,6 +13,8 @@ import java.sql.*;
  */
 public class MySQL_Conexion {
 
+    //Conexion a MySQL
+    /*
     public static Connection getConexion() throws SQLException {
         Connection con = null;
         try {
@@ -33,5 +35,33 @@ public class MySQL_Conexion {
             System.out.println("Conexion lograda");
         }
     }
+    */
 
+    //Conexion a SQL Server
+    
+    
+    private static final  String ipAddress = "localhost";
+    private static final String bdNombre = "Pensamientos2";
+    private static final String usuario = "sa";
+    private static final String contraseña = "root";
+    private static final String puerto = "1433";
+
+    public static Connection getConexion() throws SQLException {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //String url = "jdbc:sqlserver://" + ipAddress + ":" + puerto + ";databaseName=" + bdNombre; //Escuela
+        String url = "jdbc:sqlserver://" + ipAddress + "\\SQLEXPRESS;databaseName=" + bdNombre; //Casa
+        return DriverManager.getConnection(url, usuario, contraseña);
+    }
+
+    public static void main(String[] args) throws SQLException {
+        Connection con = ConexionBD.getBdConexion();
+        if (con != null) {
+            System.out.println("Conexion exitosa");
+        }
+    }
+    
 }

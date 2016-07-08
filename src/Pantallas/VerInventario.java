@@ -742,6 +742,7 @@ public class VerInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
+        jLabel7.setText("Modificar datos");
         if (evt.getClickCount() > 1) {
             int linea = tablaProductos.getSelectedRow();
 

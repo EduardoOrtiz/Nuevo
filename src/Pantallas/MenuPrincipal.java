@@ -1,5 +1,6 @@
 package Pantallas;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
@@ -49,6 +50,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú principal");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -133,6 +139,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Box-16.png"))); // NOI18N
         jMenu2.setText("Inventario");
 
+        menuVerProductos.setMnemonic('I');
         menuVerProductos.setText("Ver productos");
         menuVerProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,8 +208,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this, "Salir", "Confirmar", JOptionPane.YES_NO_OPTION);
-        
-        if (opcion ==JOptionPane.YES_OPTION) {
+
+        if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
 
@@ -225,6 +232,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         vv.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        String tecla = "" + evt.getKeyChar();
+        if (tecla.equals(KeyEvent.VK_CONTROL + KeyEvent.VK_I)) {
+            System.out.println("Control + I");
+        }
+    }//GEN-LAST:event_formKeyTyped
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
