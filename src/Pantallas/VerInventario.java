@@ -742,13 +742,13 @@ public class VerInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
-        jLabel7.setText("Modificar datos");
         if (evt.getClickCount() > 1) {
             int linea = tablaProductos.getSelectedRow();
 
             if (linea >= 0) {
                 BeanProducto bpro = listaP.get(linea);
                 llenarCampos(bpro);
+                jLabel7.setText("Modificar datos");
                 RegProducto.pack();
                 RegProducto.setResizable(false);
                 RegProducto.setLocationRelativeTo(this);
@@ -763,24 +763,24 @@ public class VerInventario extends javax.swing.JFrame {
             menuOpciones.add(jMenuItem1);
             menuOpciones.add(jMenuItem2);
             menuOpciones.add(jMenuItem3);
-            menuOpciones.show(evt.getComponent(),evt.getX(),evt.getY());
+            menuOpciones.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tablaProductosMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int linea = tablaProductos.getSelectedRow();
 
-            if (linea >= 0) {
-                BeanProducto bpro = listaP.get(linea);
-                llenarCampos(bpro);
-                RegProducto.pack();
-                RegProducto.setResizable(false);
-                RegProducto.setLocationRelativeTo(this);
-                RegProducto.setVisible(true);
-            } else {
-                actualTabla(p.consultareProductos());
-                JOptionPane.showMessageDialog(this, "Porfavor, seleccione una fila");
-            }
+        if (linea >= 0) {
+            BeanProducto bpro = listaP.get(linea);
+            llenarCampos(bpro);
+            RegProducto.pack();
+            RegProducto.setResizable(false);
+            RegProducto.setLocationRelativeTo(this);
+            RegProducto.setVisible(true);
+        } else {
+            actualTabla(p.consultareProductos());
+            JOptionPane.showMessageDialog(this, "Porfavor, seleccione una fila");
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
