@@ -12,23 +12,26 @@ import java.sql.*;
  * @author jesuseduardo
  */
 public class MySQL_Conexion {
-    
-    public static Connection getConexion() throws SQLException{
-        Connection con=null;
+
+    public static Connection getConexion() throws SQLException {
+        Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3126230","sql3126230","rIELMAiYmS");
-        } catch (ClassNotFoundException e){
+            //con = DriverManager.getConnection("jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3126230", "sql3126230", "rIELMAiYmS");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pensamientos_bd", "root", "");
+
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return con;
     }
-    public static void main(String[] args) throws SQLException{
-        MySQL_Conexion msql=new MySQL_Conexion();
-        Connection c=msql.getConexion();
-        if (c!=null) {
+
+    public static void main(String[] args) throws SQLException {
+        MySQL_Conexion msql = new MySQL_Conexion();
+        Connection c = msql.getConexion();
+        if (c != null) {
             System.out.println("Conexion lograda");
         }
     }
-    
+
 }
