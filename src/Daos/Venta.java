@@ -6,8 +6,7 @@
 package Daos;
 
 import Beans.BeanVenta;
-import Conexion_BD.ConexionBD;
-import Conexion_BD.MySQL_Conexion;
+import Conexion_BD.Conexion_BD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +28,7 @@ public class Venta {
 
     public Venta() {
         try {
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
             // conexion = ConexionBD.getBdConexion();
         } catch (Exception e) {
         }
@@ -40,7 +39,7 @@ public class Venta {
         try {
 
             //conexion = ConexionBD.getBdConexion();
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
             
             PreparedStatement stm = conexion.prepareStatement(sql);
 
@@ -68,7 +67,7 @@ public class Venta {
         String sql = "SELECT V.producto_id,P.nombre, COUNT(*)as UnidadesVendidas,V.fecha,P.precio_venta,P.precio_venta*COUNT(*) AS Total FROM PRODUCTO P JOIN VENTA V ON V.producto_id=P.id GROUP BY P.nombre,V.producto_id,V.fecha,V.total,P.precio_venta ORDER BY V.fecha;";// WHERE fecha='"+vv.obtenerFecha()+"';";
         try {
             //conexion = ConexionBD.getBdConexion();
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
             stm = conexion.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -101,7 +100,7 @@ public class Venta {
         String sql = "SELECT V.producto_id,P.nombre, COUNT(*)as UnidadesVendidas,V.fecha,SUM(V.total),P.precio_venta FROM PRODUCTO P JOIN VENTA V ON V.producto_id=P.id GROUP BY P.nombre,V.producto_id,V.fecha,V.total,P.precio_venta HAVING V.fecha='" + fecha + "';";
         try {
             //conexion = ConexionBD.getBdConexion();
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
             
             stm = conexion.prepareStatement(sql);
             rs = stm.executeQuery();
@@ -140,7 +139,7 @@ public class Venta {
         String sql = "SELECT SUM(total) AS Venta_Total_Dia FROM VENTA WHERE fecha='" + fecha + "';";
         try {
             //conexion = ConexionBD.getBdConexion();
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
 
             stm = conexion.prepareStatement(sql);
             rs = stm.executeQuery();

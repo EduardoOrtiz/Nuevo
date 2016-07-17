@@ -6,7 +6,7 @@
 package Daos;
 
 import Beans.BeanProducto;
-import Conexion_BD.MySQL_Conexion;
+import Conexion_BD.Conexion_BD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ public class Producto {
 
     public Producto() {
         try {
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
         } catch (Exception e) {
         }
     }
@@ -34,7 +34,7 @@ public class Producto {
     public boolean registrarProducto(BeanProducto Bean) {
         String sql = "INSERT INTO PRODUCTO(codigo,nombre,descripcion,precio_compra,precio_venta,existencia,proveedor,marca) values(?,?,?,?,?,?,?,?);";
         try {
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
 
             // conexion = ConexionBD.getBdConexion();
             PreparedStatement stm = conexion.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class Producto {
         PreparedStatement stm = null;
         String sql = "SELECT * FROM PRODUCTO;";
         try {
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
 
             // conexion = ConexionBD.getBdConexion(); //Conexion SQL Server
             stm = conexion.prepareStatement(sql); //Conexion MySQL
@@ -101,7 +101,7 @@ public class Producto {
         try {
             
             //conexion = ConexionBD.getBdConexion();
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
 
             PreparedStatement stm = conexion.prepareStatement(sql);
 
@@ -167,7 +167,7 @@ public class Producto {
         String sql = "SELECT * FROM PRODUCTO WHERE nombre LIKE '?'";
         try {
             //conexion = ConexionBD.getBdConexion();
-            conexion = MySQL_Conexion.getConexion();
+            conexion = Conexion_BD.getConexionMySQL();
 
             stm = conexion.prepareStatement(sql);
             rs = stm.executeQuery();

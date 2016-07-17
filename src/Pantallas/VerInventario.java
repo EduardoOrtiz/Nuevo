@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
 
 public class VerInventario extends javax.swing.JFrame {
