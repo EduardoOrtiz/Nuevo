@@ -32,7 +32,7 @@ public class Producto {
     }
 
     public boolean registrarProducto(BeanProducto Bean) {
-        String sql = "INSERT INTO PRODUCTO(codigo,nombre,descripcion,precio_compra,precio_venta,existencia,proveedor,marca) values(?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO PRODUCTO(codigo,nombre,descripcion,precio_compra,precio_venta,existencia,proveedor,marca,codigo_tienda) values(?,?,?,?,?,?,?,?,?);";
         try {
             conexion = Conexion_BD.getConexionMySQL();
 
@@ -47,6 +47,7 @@ public class Producto {
             stm.setInt(6, Bean.getExistencias());
             stm.setString(7, Bean.getProveedor());
             stm.setString(8, Bean.getMarca());
+            stm.setString(9, Bean.getCodigo_tienda());
 
             if (stm.executeUpdate() == 1) { //verifica que sea true
                 stm.close();
@@ -82,6 +83,7 @@ public class Producto {
                 bean.setExistencias(rs.getInt(7));
                 bean.setProveedor(rs.getString(8));
                 bean.setMarca(rs.getString(9));
+                bean.setCodigo_tienda(rs.getString(10));
 
                 productos.add(bean);
 
@@ -96,10 +98,98 @@ public class Producto {
         return productos;
     }
 
+    public ArrayList<Object> nombresProductos() {
+        ArrayList<Object> productos = new ArrayList();
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        String sql = "SELECT DISTINCT nombre FROM producto;";
+        try {
+            conexion = Conexion_BD.getConexionMySQL();
+
+            // conexion = ConexionBD.getBdConexion(); //Conexion SQL Server
+            stm = conexion.prepareStatement(sql); //Conexion MySQL
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                productos.add(rs.getObject(1));
+            }
+            stm.close();
+            conexion.close();
+        } catch (Exception e) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return productos;
+    }
+
+    public ArrayList<Object> descripcionesProductos() {
+        ArrayList<Object> productos = new ArrayList();
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        String sql = "SELECT DISTINCT descripcion FROM producto;";
+        try {
+            conexion = Conexion_BD.getConexionMySQL();
+
+            // conexion = ConexionBD.getBdConexion(); //Conexion SQL Server
+            stm = conexion.prepareStatement(sql); //Conexion MySQL
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                productos.add(rs.getObject(1));
+            }
+            stm.close();
+            conexion.close();
+        } catch (Exception e) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return productos;
+    }
+
+    public ArrayList<Object> marcasProductos() {
+        ArrayList<Object> productos = new ArrayList();
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        String sql = "SELECT DISTINCT marca FROM producto;";
+        try {
+            conexion = Conexion_BD.getConexionMySQL();
+
+            // conexion = ConexionBD.getBdConexion(); //Conexion SQL Server
+            stm = conexion.prepareStatement(sql); //Conexion MySQL
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                productos.add(rs.getObject(1));
+            }
+            stm.close();
+            conexion.close();
+        } catch (Exception e) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return productos;
+    }
+
+    public ArrayList<Object> proveedoresProductos() {
+        ArrayList<Object> productos = new ArrayList();
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        String sql = "SELECT DISTINCT proveedor FROM producto;";
+        try {
+            conexion = Conexion_BD.getConexionMySQL();
+
+            // conexion = ConexionBD.getBdConexion(); //Conexion SQL Server
+            stm = conexion.prepareStatement(sql); //Conexion MySQL
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                productos.add(rs.getObject(1));
+            }
+            stm.close();
+            conexion.close();
+        } catch (Exception e) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return productos;
+    }
+
     public boolean modificarExistencia(int id) {
         String sql = "UPDATE PRODUCTO set existencia=existencia-1 WHERE id=?;";
         try {
-            
+
             //conexion = ConexionBD.getBdConexion();
             conexion = Conexion_BD.getConexionMySQL();
 
@@ -118,7 +208,7 @@ public class Producto {
 
     public boolean modificarProducto(BeanProducto bean) {
 
-        String sql = "UPDATE PRODUCTO set codigo=?, nombre=?, descripcion=?,precio_compra=?,precio_venta=?,existencia=?,proveedor=?,marca=? WHERE id=?;";
+        String sql = "UPDATE PRODUCTO set codigo=?, nombre=?, descripcion=?,precio_compra=?,precio_venta=?,existencia=?,proveedor=?,marca=?,codigo_tienda=? WHERE id=?;";
 
         try (PreparedStatement stm = conexion.prepareStatement(sql)) {
             stm.setString(1, bean.getCodigo());
@@ -129,7 +219,8 @@ public class Producto {
             stm.setInt(6, bean.getExistencias());
             stm.setString(7, bean.getProveedor());
             stm.setString(8, bean.getMarca());
-            stm.setInt(9, bean.getId());
+            stm.setString(9, bean.getCodigo_tienda());
+            stm.setInt(10, bean.getId());
 
             if (stm.executeUpdate() == 1) {
                 stm.close();
@@ -198,4 +289,19 @@ public class Producto {
         return productos;
     }
 
+    public boolean eliminarProducto(int id) {
+        String query = "DELETE FROM PRODUCTO WHERE id=" + id + ";";
+        try {
+            conexion = Conexion_BD.getConexionMySQL();
+            PreparedStatement ps = conexion.prepareStatement(query);
+            if (ps.executeUpdate() == 1) {
+                ps.close();
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
 }

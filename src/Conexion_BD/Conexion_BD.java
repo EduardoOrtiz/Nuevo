@@ -12,12 +12,13 @@ import java.sql.*;
  * @author jesuseduardo
  */
 public class Conexion_BD {
-    
+
     public static Connection getConexionMySQL() throws SQLException {
         Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            //con = DriverManager.getConnection("jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3126230", "sql3126230", "rIELMAiYmS");
+            //con = DriverManager.getConnection("jdbc:mysql://mysql.hostinger.es:/u741493231_p3ns4", "u741493231_us3r1", "7895214");
+            //con = DriverManager.getConnection("jdbc:mysql://mysql.hostinger.es:3306/u741493231_p3ns4", "u741493231_us3r1", "789521496lalo");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pensamientos", "root", "");
 
         } catch (ClassNotFoundException e) {
@@ -27,9 +28,8 @@ public class Conexion_BD {
     }
 
     //Conexion a SQL Server
-    
-    private static final  String ipAddress = "localhost";
-    private static final String bdNombre = "Pensamientos";
+    /*private static final  String ipAddress = "localhost";
+    private static final String bdNombre = "pensamientos";
     private static final String usuario = "sa";
     private static final String contraseña = "root";
     private static final String puerto = "1433";
@@ -44,14 +44,12 @@ public class Conexion_BD {
         String url = "jdbc:sqlserver://" + ipAddress + "\\SQLEXPRESS;databaseName=" + bdNombre; //Casa
         return DriverManager.getConnection(url, usuario, contraseña);
     }
-
+     */
     public static void main(String[] args) throws SQLException {
-        
-        if (Conexion_BD.getConexionSQL() != null) {
-            System.out.println("Conexion SQL lograda");
-        }else if (Conexion_BD.getConexionMySQL() != null){
+
+        if (Conexion_BD.getConexionMySQL() != null) {
             System.out.println("Conexion MySQL lograda");
         }
     }
-    
+
 }

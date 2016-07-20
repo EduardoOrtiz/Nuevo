@@ -20,13 +20,10 @@ public class BeanProducto {
     int existencias;
     String proveedor;
     String marca;
+    String codigo_tienda;
 
-    public BeanProducto() {
-        
-    }
-    
-    public BeanProducto(int id, String codigo, String nombre, String descripcion, float precio_compra, float precio_venta, int existencias, String proveedor, String marca) {
-        this.id = id;
+    public BeanProducto(String codigo, String nombre, String descripcion, float precio_compra, float precio_venta, int existencias, String proveedor, String marca, String codigo_tienda) {
+
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -35,9 +32,12 @@ public class BeanProducto {
         this.existencias = existencias;
         this.proveedor = proveedor;
         this.marca = marca;
+        this.codigo_tienda = codigo_tienda;
     }
-    
-    
+
+    public BeanProducto() {
+
+    }
 
     public int getId() {
         return id;
@@ -110,6 +110,12 @@ public class BeanProducto {
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    
-    
+
+    public String getCodigo_tienda() {
+        return codigo_tienda;
+    }
+
+    public void setCodigo_tienda(String codigo_tienda) {
+        this.codigo_tienda = codigo_tienda;
+    }
 }

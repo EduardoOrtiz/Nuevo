@@ -9,7 +9,7 @@ public class Principal {
     public static void main(String[] args) throws SQLException {
         Conexion_BD conexion=new Conexion_BD();
         
-        if (Conexion_BD.getConexionSQL()!=null) {
+        if (Conexion_BD.getConexionMySQL()!=null) {
             
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo conectar al servidor");
